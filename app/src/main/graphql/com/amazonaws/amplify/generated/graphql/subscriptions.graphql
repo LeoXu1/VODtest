@@ -1,0 +1,34 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateVideo {
+  onCreateVideo {
+    id
+    title
+    genre
+    hlsUrl
+    thumbNailsUrls
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateVideo {
+  onUpdateVideo {
+    id
+    title
+    genre
+    hlsUrl
+    thumbNailsUrls
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteVideo {
+  onDeleteVideo {
+    id
+    title
+    genre
+    hlsUrl
+    thumbNailsUrls
+    createdAt
+    updatedAt
+  }
+}

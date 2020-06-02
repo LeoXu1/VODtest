@@ -1,0 +1,7 @@
+type Video @model {
+  id: ID!
+  title: String!
+  genre: String!
+  hlsUrl: String
+  thumbNailsUrls:[String]
+}

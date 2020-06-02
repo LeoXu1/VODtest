@@ -1,0 +1,43 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateVideo(
+  $input: CreateVideoInput!
+  $condition: ModelVideoConditionInput
+) {
+  createVideo(input: $input, condition: $condition) {
+    id
+    title
+    genre
+    hlsUrl
+    thumbNailsUrls
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateVideo(
+  $input: UpdateVideoInput!
+  $condition: ModelVideoConditionInput
+) {
+  updateVideo(input: $input, condition: $condition) {
+    id
+    title
+    genre
+    hlsUrl
+    thumbNailsUrls
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteVideo(
+  $input: DeleteVideoInput!
+  $condition: ModelVideoConditionInput
+) {
+  deleteVideo(input: $input, condition: $condition) {
+    id
+    title
+    genre
+    hlsUrl
+    thumbNailsUrls
+    createdAt
+    updatedAt
+  }
+}
