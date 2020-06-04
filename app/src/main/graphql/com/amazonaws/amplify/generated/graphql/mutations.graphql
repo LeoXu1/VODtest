@@ -9,6 +9,7 @@ mutation CreateVideo(
     genre
     hlsUrl
     thumbNailsUrls
+    mp4Urls
     createdAt
     updatedAt
   }
@@ -23,6 +24,7 @@ mutation UpdateVideo(
     genre
     hlsUrl
     thumbNailsUrls
+    mp4Urls
     createdAt
     updatedAt
   }
@@ -37,6 +39,7 @@ mutation DeleteVideo(
     genre
     hlsUrl
     thumbNailsUrls
+    mp4Urls
     createdAt
     updatedAt
   }

@@ -39,21 +39,21 @@ public class HomeActivity extends AppCompatActivity {
         // use a linear layout manager
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        MyAdapter.RecyclerViewClickListener mListener = new MyAdapter.RecyclerViewClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Log.i(TAG, mVideos.get(position).id());
-                String title = mVideos.get(position).title();
-                String genre = mVideos.get(position).genre();
-                String hlsUrl = mVideos.get(position).hlsUrl();
-                Intent playVideoIntent = new Intent(HomeActivity.this, VideoPlayerActivity.class);
-                Bundle extras = new Bundle();
-                extras.putString("EXTRA_TITLE", title);
-                extras.putString("EXTRA_GENRE", genre);
-                extras.putString("EXTRA_URL", hlsUrl);
-                playVideoIntent.putExtras(extras);
-                startActivity(playVideoIntent);
-            }
+        //Set up the video player when a video is clicked
+        MyAdapter.RecyclerViewClickListener mListener = (view, position) -> {
+            Log.i(TAG, mVideos.get(position).id());
+            String title = mVideos.get(position).title();
+            String genre = mVideos.get(position).genre();
+            String hlsUrl = mVideos.get(position).hlsUrl();
+            String mp4Url = mVideos.get(position).mp4Urls().get(0);
+            Intent playVideoIntent = new Intent(HomeActivity.this, VideoPlayerActivity.class);
+            Bundle extras = new Bundle();
+            extras.putString("EXTRA_TITLE", title);
+            extras.putString("EXTRA_GENRE", genre);
+            extras.putString("EXTRA_URL", hlsUrl);
+            extras.putString("EXTRA_MP4URL", mp4Url);
+            playVideoIntent.putExtras(extras);
+            startActivity(playVideoIntent);
         };
 
         // specify an adapter (see also next example)
@@ -62,31 +62,26 @@ public class HomeActivity extends AppCompatActivity {
 
         ClientFactory.init(this);
 
-        FloatingActionButton btnAddPet = findViewById(R.id.btn_addPet);
-        btnAddPet.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent addPetIntent = new Intent(HomeActivity.this, UploadVideoActivity.class);
-                HomeActivity.this.startActivity(addPetIntent);
-            }
+        //Upload button
+        FloatingActionButton btnUpload = findViewById(R.id.btn_uploadvideo);
+        btnUpload.setOnClickListener(view -> {
+            Intent uploadIntent = new Intent(HomeActivity.this, UploadVideoActivity.class);
+            HomeActivity.this.startActivity(uploadIntent);
         });
         final SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefresh);
-        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                query(); // your code
-                pullToRefresh.setRefreshing(false);
-            }
+        pullToRefresh.setOnRefreshListener(() -> {
+            query();
+            pullToRefresh.setRefreshing(false);
         });
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_bar);
+        //Bottom navigation bar
+        BottomNavigationView navigation = findViewById(R.id.bottom_bar);
         navigation.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_home:
                     break;
                 case R.id.action_profile:
-                    Intent a = new Intent(HomeActivity.this,ProfileActivity.class);
+                    Intent a = new Intent(HomeActivity.this,MyProfileActivity.class);
                     startActivity(a);
                     overridePendingTransition(0,0);
                     break;

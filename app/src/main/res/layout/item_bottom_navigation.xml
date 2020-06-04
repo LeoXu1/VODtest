@@ -7,4 +7,5 @@
     android:layout_height="wrap_content"
     android:background="?android:attr/windowBackground"
     app:menu="@menu/my_navigation_items"
+    app:labelVisibilityMode="labeled"
     />

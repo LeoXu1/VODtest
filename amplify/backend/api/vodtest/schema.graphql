@@ -4,4 +4,5 @@ type Video @model {
   genre: String!
   hlsUrl: String
   thumbNailsUrls:[String]
+  mp4Urls:[String]
 }

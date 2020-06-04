@@ -32,24 +32,13 @@ public class UploadVideoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_upload_video);
 
         Button btnUpload = findViewById(R.id.btn_upload);
-        btnUpload.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                uploadWithTransferUtility(videoPath);
-            }
-        });
+        btnUpload.setOnClickListener(view -> uploadWithTransferUtility(videoPath));
 
         Button btnAddVideo = findViewById(R.id.btn_add_video);
-        btnAddVideo.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                chooseVideo();
-            }
-        });
+        btnAddVideo.setOnClickListener(view -> chooseVideo());
     }
 
+    //Choose video from gallery
     public void chooseVideo() {
         Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(i, RESULT_LOAD_VIDEO);
@@ -68,11 +57,13 @@ public class UploadVideoActivity extends AppCompatActivity {
             cursor.close();
             // String picturePath contains the path of selected Image
             videoPath = vidPath;
+            Log.i("VOD", videoPath);
             String videoUploaded = "Video added.";
             ((TextView) findViewById(R.id.text_video_add)).setText(videoUploaded);
         }
     }
 
+    //Upload to S3 using TransferUtility
     private String getS3Key(String localPath) {
         //We have read and write ability under the public folder
         return new File(localPath).getName();

@@ -74,7 +74,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         void bindData(ListVideosQuery.Item item) {
             txt_title.setText(item.title());
             txt_genre.setText(item.genre());
-            if (item.thumbNailsUrls() != null) {
+            if (item.thumbNailsUrls() == null) {
+                Picasso.get().load("https://i.stack.imgur.com/h6viz.gif").into(image_view);
+            } else {
                 Picasso.get().load(item.thumbNailsUrls().get(0)).into(image_view);
             }
 
