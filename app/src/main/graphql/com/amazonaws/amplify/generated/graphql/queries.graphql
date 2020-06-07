@@ -30,3 +30,30 @@ query ListVideos(
     nextToken
   }
 }
+query GetUser($id: ID!) {
+  getUser(id: $id) {
+    id
+    name
+    location
+    pictureUrl
+    createdAt
+    updatedAt
+  }
+}
+query ListUsers(
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      location
+      pictureUrl
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}

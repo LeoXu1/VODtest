@@ -12,11 +12,12 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="VOD Test"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DownloadPlayerActivity"/>
+        <activity android:name=".EditProfileActivity"></activity>
+        <activity android:name=".DownloadPlayerActivity" />
         <activity
             android:name=".DownloadsActivity"
             android:label="Downloads" />
@@ -26,8 +27,9 @@
         <activity
             android:name=".MyProfileActivity"
             android:label="@string/action_profile" />
-        <activity android:name=".VideoPlayerActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity
+            android:name=".VideoPlayerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".UploadVideoActivity"
             android:label="Upload video" />

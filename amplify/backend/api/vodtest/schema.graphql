@@ -6,3 +6,10 @@ type Video @model {
   thumbNailsUrls:[String]
   mp4Urls:[String]
 }
+
+type User @model {
+  id: ID!
+  name: String!
+  location: String
+  pictureUrl: String
+}

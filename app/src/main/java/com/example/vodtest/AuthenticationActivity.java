@@ -49,27 +49,9 @@ public class AuthenticationActivity extends AppCompatActivity {
         switch (userStateDetails.getUserState()){
             case SIGNED_IN:
                 Intent i = new Intent(AuthenticationActivity.this, HomeActivity.class);
-                try {
-
-                    //Put user info into SharedPreferences
-                    String name = AWSMobileClient.getInstance().getUserAttributes().get("given_name");
-                    String email = AWSMobileClient.getInstance().getUserAttributes().get("email");
-                    SharedPreferences prefs = getSharedPreferences("VOD", MODE_PRIVATE);
-                    prefs.edit().putString("name", name).apply();
-                    prefs.edit().putString("email", email).apply();
-                    if (AWSMobileClient.getInstance().getUserAttributes().get("profile") == null) {
-                        //Add blank profile picture
-                        HashMap<String, String> map = new HashMap<>();
-                        map.put("profile", "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-                        AWSMobileClient.getInstance().updateUserAttributes(map);
-                        String profile = AWSMobileClient.getInstance().getUserAttributes().get("profile");
-                        prefs.edit().putString("profile", profile).apply();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
                 startActivity(i);
                 break;
+            case SIGNED_OUT_USER_POOLS_TOKENS_INVALID:
             case SIGNED_OUT:
                 showSignIn();
                 break;
@@ -88,6 +70,18 @@ public class AuthenticationActivity extends AppCompatActivity {
                         @Override
                         public void onResult(UserStateDetails result) {
                             Log.d(TAG, "Showing Signin UI: ");
+                            try {
+                                String name = AWSMobileClient.getInstance().getUserAttributes().get("given_name");
+                                String username = AWSMobileClient.getInstance().getUsername();
+                                String email = AWSMobileClient.getInstance().getUserAttributes().get("email");
+                                SharedPreferences prefs = getSharedPreferences("VOD", MODE_PRIVATE);
+                                prefs.edit().clear().apply();
+                                prefs.edit().putString("name", name).apply();
+                                prefs.edit().putString("username", username).apply();
+                                prefs.edit().putString("email", email).apply();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
 
                         @Override
