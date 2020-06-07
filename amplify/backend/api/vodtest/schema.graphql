@@ -5,6 +5,7 @@ type Video @model {
   hlsUrl: String
   thumbNailsUrls:[String]
   mp4Urls:[String]
+  sub: String
 }
 
 type User @model {

@@ -7,6 +7,7 @@ query GetVideo($id: ID!) {
     hlsUrl
     thumbNailsUrls
     mp4Urls
+    sub
     createdAt
     updatedAt
   }
@@ -24,6 +25,7 @@ query ListVideos(
       hlsUrl
       thumbNailsUrls
       mp4Urls
+      sub
       createdAt
       updatedAt
     }

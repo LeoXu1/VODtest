@@ -11,20 +11,31 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amazonaws.amplify.generated.graphql.GetUserQuery;
+import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.apollographql.apollo.GraphQLCall;
+import com.apollographql.apollo.api.Response;
+import com.apollographql.apollo.exception.ApolloException;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
+
+import javax.annotation.Nonnull;
 
 public class UploadVideoActivity extends AppCompatActivity {
     private static final String TAG = UploadVideoActivity.class.getSimpleName();
     private static int RESULT_LOAD_VIDEO = 1;
     private String videoPath;
+    String sub;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +47,20 @@ public class UploadVideoActivity extends AppCompatActivity {
 
         Button btnAddVideo = findViewById(R.id.btn_add_video);
         btnAddVideo.setOnClickListener(view -> chooseVideo());
+
+        Thread getSubThread = new Thread(() -> {
+            try {
+                sub = AWSMobileClient.getInstance().getUserAttributes().get("sub");
+                if (sub != null) {
+                    Log.i("VOD", sub);
+                } else {
+                    Log.i("VOD", "sub null");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        getSubThread.start();
     }
 
     //Choose video from gallery
@@ -76,6 +101,7 @@ public class UploadVideoActivity extends AppCompatActivity {
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.addUserMetadata("title", titleInput);
         objectMetadata.addUserMetadata("genre", genreInput);
+        objectMetadata.addUserMetadata("sub", sub);
 
         Log.d(TAG, "Uploading file from " + localPath + " to " + key);
 

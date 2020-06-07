@@ -46,12 +46,14 @@ public class HomeActivity extends AppCompatActivity {
             String genre = mVideos.get(position).genre();
             String hlsUrl = mVideos.get(position).hlsUrl();
             String mp4Url = mVideos.get(position).mp4Urls().get(0);
+            String sub = mVideos.get(position).sub();
             Intent playVideoIntent = new Intent(HomeActivity.this, VideoPlayerActivity.class);
             Bundle extras = new Bundle();
             extras.putString("EXTRA_TITLE", title);
             extras.putString("EXTRA_GENRE", genre);
             extras.putString("EXTRA_URL", hlsUrl);
             extras.putString("EXTRA_MP4URL", mp4Url);
+            extras.putString("EXTRA_SUB", sub);
             playVideoIntent.putExtras(extras);
             startActivity(playVideoIntent);
         };
