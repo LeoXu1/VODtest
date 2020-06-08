@@ -94,6 +94,13 @@ public class MyProfileActivity extends AppCompatActivity {
             startActivity(editProfileIntent);
         });
 
+        Button myStudioButton = findViewById(R.id.myStudioBtn);
+        myStudioButton.setOnClickListener(v -> {
+            Intent myStudioIntent = new Intent(MyProfileActivity.this, MyStudioActivity.class);
+            myStudioIntent.putExtra("sub", sub);
+            startActivity(myStudioIntent);
+        });
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
