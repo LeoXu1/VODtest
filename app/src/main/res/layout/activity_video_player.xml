@@ -34,7 +34,7 @@
                 android:text="Download"
                 android:textColor="#a9a9a9"
                 android:foreground="?attr/selectableItemBackground"
-                android:textSize="10dp"/>
+                android:textSize="10sp"/>
         </LinearLayout>
 
         <TextView
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/text_title"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:text="Title"
             android:textSize="30sp" />
 
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/text_genre"
             android:layout_marginTop="0dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:text="Genre"
             android:textSize="15sp" />
 
@@ -59,7 +59,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_margin="15dp">
+            android:layout_margin="15dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:id="@+id/userInfoLayout">
 
             <ImageView
                 android:id="@+id/profilePictureDisplay"
@@ -75,14 +78,14 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/text_displayName"
                     android:layout_marginTop="0dp"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
                     android:textSize="15sp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/text_displayLocation"
                     android:layout_marginTop="0dp"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
                     android:textSize="15sp" />
 
             </LinearLayout>

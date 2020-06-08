@@ -76,37 +76,33 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         //Fullscreen player
         ImageView fullscreenButton = playerView.findViewById(R.id.exo_fullscreen_icon);
-        fullscreenButton.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SourceLockedOrientationActivity")
-            @Override
-            public void onClick(View view) {
-                if(fullscreen) {
-                    fullscreenButton.setImageDrawable(ContextCompat.getDrawable(VideoPlayerActivity.this, R.drawable.ic_fullscreen_black_24dp));
-                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-                    if(getSupportActionBar() != null){
-                        getSupportActionBar().show();
-                    }
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) playerView.getLayoutParams();
-                    params.width = params.MATCH_PARENT;
-                    params.height = (int) ( 200 * getApplicationContext().getResources().getDisplayMetrics().density);
-                    playerView.setLayoutParams(params);
-                    fullscreen = false;
-                }else{
-                    fullscreenButton.setImageDrawable(ContextCompat.getDrawable(VideoPlayerActivity.this, R.drawable.ic_fullscreen_exit_black_24dp));
-                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN
-                            |View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                            |View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-                    if(getSupportActionBar() != null){
-                        getSupportActionBar().hide();
-                    }
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) playerView.getLayoutParams();
-                    params.width = params.MATCH_PARENT;
-                    params.height = params.MATCH_PARENT;
-                    playerView.setLayoutParams(params);
-                    fullscreen = true;
+        fullscreenButton.setOnClickListener(view -> {
+            if(fullscreen) {
+                fullscreenButton.setImageDrawable(ContextCompat.getDrawable(VideoPlayerActivity.this, R.drawable.ic_fullscreen_black_24dp));
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+                if(getSupportActionBar() != null){
+                    getSupportActionBar().show();
                 }
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) playerView.getLayoutParams();
+                params.width = params.MATCH_PARENT;
+                params.height = (int) ( 200 * getApplicationContext().getResources().getDisplayMetrics().density);
+                playerView.setLayoutParams(params);
+                fullscreen = false;
+            }else{
+                fullscreenButton.setImageDrawable(ContextCompat.getDrawable(VideoPlayerActivity.this, R.drawable.ic_fullscreen_exit_black_24dp));
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN
+                        |View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        |View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+                if(getSupportActionBar() != null){
+                    getSupportActionBar().hide();
+                }
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) playerView.getLayoutParams();
+                params.width = params.MATCH_PARENT;
+                params.height = params.MATCH_PARENT;
+                playerView.setLayoutParams(params);
+                fullscreen = true;
             }
         });
 
@@ -117,6 +113,13 @@ public class VideoPlayerActivity extends AppCompatActivity {
         ClientFactory.appSyncClient().query(getUserQuery)
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
                 .enqueue(queryCallback);
+
+        LinearLayout profileInfo = findViewById(R.id.userInfoLayout);
+        profileInfo.setOnClickListener(v -> {
+            Intent viewProfileIntent = new Intent(VideoPlayerActivity.this, OtherProfileActivity.class);
+            viewProfileIntent.putExtra("sub", sub);
+            startActivity(viewProfileIntent);
+        });
 
     }
 
