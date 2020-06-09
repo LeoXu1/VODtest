@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.amazonaws.amplify.generated.graphql.ListUsersQuery;
 import com.amazonaws.amplify.generated.graphql.UpdateUserMutation;
@@ -13,6 +15,11 @@ import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
+import com.hootsuite.nachos.NachoTextView;
+import com.hootsuite.nachos.chip.Chip;
+import com.hootsuite.nachos.terminator.ChipTerminatorHandler;
+
+import java.util.ArrayList;
 
 import javax.annotation.Nonnull;
 
@@ -38,17 +45,7 @@ public class EditProfileActivity extends AppCompatActivity {
         Button editProfileButton = findViewById(R.id.btn_save_profile);
 
         editProfileButton.setOnClickListener(v -> {
-            /*
-            UpdateUserInput.Builder updateUserInputBuilder = UpdateUserInput.builder().id(sub);
-            UpdateUserInput updateUserInput;
-            if (editNameText.getText().length() > 0) {
-                updateUserInputBuilder = updateUserInputBuilder.name(profileInfo.getString("name"));
-            }
-            if (editLocationText.getText().length() > 0) {
-                updateUserInputBuilder = updateUserInputBuilder.location(profileInfo.getString("location"));
-            }
-            updateUserInput = updateUserInputBuilder.build();
-            */
+
             UpdateUserInput updateUserInput = UpdateUserInput.builder()
                     .id(sub)
                     .name(editNameText.getText().toString())

@@ -11,6 +11,7 @@ mutation CreateVideo(
     thumbNailsUrls
     mp4Urls
     sub
+    duration
     createdAt
     updatedAt
   }
@@ -27,6 +28,7 @@ mutation UpdateVideo(
     thumbNailsUrls
     mp4Urls
     sub
+    duration
     createdAt
     updatedAt
   }
@@ -43,6 +45,7 @@ mutation DeleteVideo(
     thumbNailsUrls
     mp4Urls
     sub
+    duration
     createdAt
     updatedAt
   }

@@ -8,6 +8,7 @@ query GetVideo($id: ID!) {
     thumbNailsUrls
     mp4Urls
     sub
+    duration
     createdAt
     updatedAt
   }
@@ -26,6 +27,7 @@ query ListVideos(
       thumbNailsUrls
       mp4Urls
       sub
+      duration
       createdAt
       updatedAt
     }

@@ -59,6 +59,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView txt_title;
         TextView txt_genre;
+        TextView txt_duration;
         ImageView image_view;
         private RecyclerViewClickListener mListener;
 
@@ -66,6 +67,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             super(itemView);
             txt_title = itemView.findViewById(R.id.txt_title);
             txt_genre = itemView.findViewById(R.id.txt_genre);
+            txt_duration = itemView.findViewById(R.id.txt_duration);
             image_view = itemView.findViewById(R.id.image_view);
             mListener = listener;
             itemView.setOnClickListener(this);
@@ -74,6 +76,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         void bindData(ListVideosQuery.Item item) {
             txt_title.setText(item.title());
             txt_genre.setText(item.genre());
+            Integer duration = item.duration();
+            int hours = duration/3600;
+            int minutes = (duration - 3600*hours)/60;
+            int seconds = duration - 3600*hours - 60*minutes;
+            String timeString;
+            if (hours != 0) {
+                timeString = hours +":"+minutes+":"+seconds;
+            } else {
+                timeString = minutes+":"+seconds;
+            }
+            txt_duration.setText(timeString);
             if (item.thumbNailsUrls() == null) {
                 Picasso.get().load("https://i.stack.imgur.com/h6viz.gif").into(image_view);
             } else {

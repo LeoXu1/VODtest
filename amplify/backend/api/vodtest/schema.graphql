@@ -6,6 +6,7 @@ type Video @model {
   thumbNailsUrls:[String]
   mp4Urls:[String]
   sub: String
+  duration: Int
 }
 
 type User @model {

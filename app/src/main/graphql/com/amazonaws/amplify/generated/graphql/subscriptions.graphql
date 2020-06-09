@@ -8,6 +8,7 @@ subscription OnCreateVideo {
     thumbNailsUrls
     mp4Urls
     sub
+    duration
     createdAt
     updatedAt
   }
@@ -21,6 +22,7 @@ subscription OnUpdateVideo {
     thumbNailsUrls
     mp4Urls
     sub
+    duration
     createdAt
     updatedAt
   }
@@ -34,6 +36,7 @@ subscription OnDeleteVideo {
     thumbNailsUrls
     mp4Urls
     sub
+    duration
     createdAt
     updatedAt
   }

@@ -16,10 +16,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyStudioActivity"></activity>
-        <activity android:name=".OtherProfileActivity" />
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".DownloadPlayerActivity" />
+        <activity android:name=".MyStudioActivity"
+            android:label="My Studio"/>
+        <activity android:name=".OtherProfileActivity"
+            android:label="User Profile"/>
+        <activity android:name=".EditProfileActivity"
+            android:label="Edit Profile"/>
+        <activity android:name=".DownloadPlayerActivity"
+            android:label="View Download"/>
         <activity
             android:name=".DownloadsActivity"
             android:label="Downloads" />
