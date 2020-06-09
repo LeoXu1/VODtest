@@ -88,6 +88,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             }
             txt_duration.setText(timeString);
             if (item.thumbNailsUrls() == null) {
+                //loading icon
                 Picasso.get().load("https://i.stack.imgur.com/h6viz.gif").into(image_view);
             } else {
                 Picasso.get().load(item.thumbNailsUrls().get(0)).into(image_view);

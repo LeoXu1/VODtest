@@ -41,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
 
         //Set up the video player when a video is clicked
         MyAdapter.RecyclerViewClickListener mListener = (view, position) -> {
-            Log.i(TAG, mVideos.get(position).id());
+            String id = mVideos.get(position).id();
             String title = mVideos.get(position).title();
             String genre = mVideos.get(position).genre();
             String hlsUrl = mVideos.get(position).hlsUrl();
@@ -49,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
             String sub = mVideos.get(position).sub();
             Intent playVideoIntent = new Intent(HomeActivity.this, VideoPlayerActivity.class);
             Bundle extras = new Bundle();
+            extras.putString("EXTRA_ID", id);
             extras.putString("EXTRA_TITLE", title);
             extras.putString("EXTRA_GENRE", genre);
             extras.putString("EXTRA_URL", hlsUrl);

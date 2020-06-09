@@ -12,12 +12,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.amazonaws.amplify.generated.graphql.CreateReviewMutation;
 import com.amazonaws.amplify.generated.graphql.GetUserQuery;
+import com.amazonaws.amplify.generated.graphql.ListReviewsQuery;
 import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
@@ -38,6 +41,8 @@ import java.net.URL;
 
 import javax.annotation.Nonnull;
 
+import type.CreateReviewInput;
+
 public class VideoPlayerActivity extends AppCompatActivity {
 
     boolean fullscreen = false;
@@ -51,6 +56,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         //Player
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
+        String id = extras.getString("EXTRA_ID");
         String title = extras.getString("EXTRA_TITLE");
         String genre = extras.getString("EXTRA_GENRE");
         String url = extras.getString("EXTRA_URL");
@@ -121,6 +127,30 @@ public class VideoPlayerActivity extends AppCompatActivity {
             startActivity(viewProfileIntent);
         });
 
+        Button reviewsButton = findViewById(R.id.btn_reviews);
+        reviewsButton.setTransformationMethod(null);
+        reviewsButton.setOnClickListener(v -> {
+            Intent viewReviewsIntent = new Intent(VideoPlayerActivity.this, ReviewsActivity.class);
+            viewReviewsIntent.putExtra("id", id);
+            startActivity(viewReviewsIntent);
+        });
+
+/*
+        CreateReviewInput createReviewInput = CreateReviewInput.builder()
+                .videoID(id)
+                .content("Nice video")
+                .stars(5)
+                .build();
+
+        CreateReviewMutation createReviewMutation = CreateReviewMutation.builder()
+                .input(createReviewInput)
+                .build();
+        ClientFactory.appSyncClient().mutate(createReviewMutation)
+                .enqueue(mutateCallback);
+*/
+
+
+
     }
 
     public void downloadVideo() {
@@ -171,5 +201,10 @@ public class VideoPlayerActivity extends AppCompatActivity {
         public void onFailure(@Nonnull ApolloException e) {
             Log.e("VOD", e.toString());
         }
+
+
     };
+
+
+
 }

@@ -61,3 +61,30 @@ query ListUsers(
     nextToken
   }
 }
+query GetReview($id: ID!) {
+  getReview(id: $id) {
+    id
+    videoID
+    content
+    stars
+    createdAt
+    updatedAt
+  }
+}
+query ListReviews(
+  $filter: ModelReviewFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listReviews(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      videoID
+      content
+      stars
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}

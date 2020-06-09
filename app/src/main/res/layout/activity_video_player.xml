@@ -35,6 +35,18 @@
                 android:textColor="#a9a9a9"
                 android:foreground="?attr/selectableItemBackground"
                 android:textSize="10sp"/>
+            <Button
+                style="?android:attr/borderlessButtonStyle"
+                android:id="@+id/btn_reviews"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_baseline_chat_bubble_24"
+                android:text="Reviews"
+                android:textColor="#a9a9a9"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_marginStart="15dp"
+                android:textSize="10sp"/>
         </LinearLayout>
 
         <TextView

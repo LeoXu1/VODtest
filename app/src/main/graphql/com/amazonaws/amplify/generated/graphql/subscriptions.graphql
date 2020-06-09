@@ -71,3 +71,33 @@ subscription OnDeleteUser {
     updatedAt
   }
 }
+subscription OnCreateReview {
+  onCreateReview {
+    id
+    videoID
+    content
+    stars
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateReview {
+  onUpdateReview {
+    id
+    videoID
+    content
+    stars
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteReview {
+  onDeleteReview {
+    id
+    videoID
+    content
+    stars
+    createdAt
+    updatedAt
+  }
+}

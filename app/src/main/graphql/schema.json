@@ -154,6 +154,76 @@
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
+                    },
+                    {
+                        "name": "getReview",
+                        "description": null,
+                        "args": [
+                            {
+                                "name": "id",
+                                "description": null,
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "ID",
+                                        "ofType": null
+                                    }
+                                },
+                                "defaultValue": null
+                            }
+                        ],
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "Review",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "listReviews",
+                        "description": null,
+                        "args": [
+                            {
+                                "name": "filter",
+                                "description": null,
+                                "type": {
+                                    "kind": "INPUT_OBJECT",
+                                    "name": "ModelReviewFilterInput",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "limit",
+                                "description": null,
+                                "type": {
+                                    "kind": "SCALAR",
+                                    "name": "Int",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "nextToken",
+                                "description": null,
+                                "type": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            }
+                        ],
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "ModelReviewConnection",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
                     }
                 ],
                 "inputFields": null,
@@ -1318,6 +1388,237 @@
             },
             {
                 "kind": "OBJECT",
+                "name": "Review",
+                "description": null,
+                "fields": [
+                    {
+                        "name": "id",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "ID",
+                                "ofType": null
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "videoID",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "content",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "stars",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "Int",
+                                "ofType": null
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "createdAt",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "AWSDateTime",
+                                "ofType": null
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "updatedAt",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "AWSDateTime",
+                                "ofType": null
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    }
+                ],
+                "inputFields": null,
+                "interfaces": [],
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "INPUT_OBJECT",
+                "name": "ModelReviewFilterInput",
+                "description": null,
+                "fields": null,
+                "inputFields": [
+                    {
+                        "name": "id",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelIDInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "videoID",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "content",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "stars",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelIntInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "and",
+                        "description": null,
+                        "type": {
+                            "kind": "LIST",
+                            "name": null,
+                            "ofType": {
+                                "kind": "INPUT_OBJECT",
+                                "name": "ModelReviewFilterInput",
+                                "ofType": null
+                            }
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "or",
+                        "description": null,
+                        "type": {
+                            "kind": "LIST",
+                            "name": null,
+                            "ofType": {
+                                "kind": "INPUT_OBJECT",
+                                "name": "ModelReviewFilterInput",
+                                "ofType": null
+                            }
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "not",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelReviewFilterInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    }
+                ],
+                "interfaces": null,
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "OBJECT",
+                "name": "ModelReviewConnection",
+                "description": null,
+                "fields": [
+                    {
+                        "name": "items",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "LIST",
+                            "name": null,
+                            "ofType": {
+                                "kind": "OBJECT",
+                                "name": "Review",
+                                "ofType": null
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "nextToken",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    }
+                ],
+                "inputFields": null,
+                "interfaces": [],
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "OBJECT",
                 "name": "Mutation",
                 "description": null,
                 "fields": [
@@ -1538,6 +1839,117 @@
                         "type": {
                             "kind": "OBJECT",
                             "name": "User",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "createReview",
+                        "description": null,
+                        "args": [
+                            {
+                                "name": "input",
+                                "description": null,
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "INPUT_OBJECT",
+                                        "name": "CreateReviewInput",
+                                        "ofType": null
+                                    }
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "condition",
+                                "description": null,
+                                "type": {
+                                    "kind": "INPUT_OBJECT",
+                                    "name": "ModelReviewConditionInput",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            }
+                        ],
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "Review",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "updateReview",
+                        "description": null,
+                        "args": [
+                            {
+                                "name": "input",
+                                "description": null,
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "INPUT_OBJECT",
+                                        "name": "UpdateReviewInput",
+                                        "ofType": null
+                                    }
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "condition",
+                                "description": null,
+                                "type": {
+                                    "kind": "INPUT_OBJECT",
+                                    "name": "ModelReviewConditionInput",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            }
+                        ],
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "Review",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "deleteReview",
+                        "description": null,
+                        "args": [
+                            {
+                                "name": "input",
+                                "description": null,
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "INPUT_OBJECT",
+                                        "name": "DeleteReviewInput",
+                                        "ofType": null
+                                    }
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "condition",
+                                "description": null,
+                                "type": {
+                                    "kind": "INPUT_OBJECT",
+                                    "name": "ModelReviewConditionInput",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            }
+                        ],
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "Review",
                             "ofType": null
                         },
                         "isDeprecated": false,
@@ -2110,6 +2522,220 @@
                 "possibleTypes": null
             },
             {
+                "kind": "INPUT_OBJECT",
+                "name": "CreateReviewInput",
+                "description": null,
+                "fields": null,
+                "inputFields": [
+                    {
+                        "name": "id",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "ID",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "videoID",
+                        "description": null,
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "content",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "stars",
+                        "description": null,
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "Int",
+                                "ofType": null
+                            }
+                        },
+                        "defaultValue": null
+                    }
+                ],
+                "interfaces": null,
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "INPUT_OBJECT",
+                "name": "ModelReviewConditionInput",
+                "description": null,
+                "fields": null,
+                "inputFields": [
+                    {
+                        "name": "videoID",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "content",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "stars",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelIntInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "and",
+                        "description": null,
+                        "type": {
+                            "kind": "LIST",
+                            "name": null,
+                            "ofType": {
+                                "kind": "INPUT_OBJECT",
+                                "name": "ModelReviewConditionInput",
+                                "ofType": null
+                            }
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "or",
+                        "description": null,
+                        "type": {
+                            "kind": "LIST",
+                            "name": null,
+                            "ofType": {
+                                "kind": "INPUT_OBJECT",
+                                "name": "ModelReviewConditionInput",
+                                "ofType": null
+                            }
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "not",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelReviewConditionInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    }
+                ],
+                "interfaces": null,
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "INPUT_OBJECT",
+                "name": "UpdateReviewInput",
+                "description": null,
+                "fields": null,
+                "inputFields": [
+                    {
+                        "name": "id",
+                        "description": null,
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "ID",
+                                "ofType": null
+                            }
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "videoID",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "content",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "stars",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "Int",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    }
+                ],
+                "interfaces": null,
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "INPUT_OBJECT",
+                "name": "DeleteReviewInput",
+                "description": null,
+                "fields": null,
+                "inputFields": [
+                    {
+                        "name": "id",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "ID",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    }
+                ],
+                "interfaces": null,
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
                 "kind": "OBJECT",
                 "name": "Subscription",
                 "description": null,
@@ -2181,6 +2807,42 @@
                         "type": {
                             "kind": "OBJECT",
                             "name": "User",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "onCreateReview",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "Review",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "onUpdateReview",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "Review",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "onDeleteReview",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "Review",
                             "ofType": null
                         },
                         "isDeprecated": false,

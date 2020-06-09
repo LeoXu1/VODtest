@@ -89,3 +89,42 @@ mutation DeleteUser(
     updatedAt
   }
 }
+mutation CreateReview(
+  $input: CreateReviewInput!
+  $condition: ModelReviewConditionInput
+) {
+  createReview(input: $input, condition: $condition) {
+    id
+    videoID
+    content
+    stars
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateReview(
+  $input: UpdateReviewInput!
+  $condition: ModelReviewConditionInput
+) {
+  updateReview(input: $input, condition: $condition) {
+    id
+    videoID
+    content
+    stars
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteReview(
+  $input: DeleteReviewInput!
+  $condition: ModelReviewConditionInput
+) {
+  deleteReview(input: $input, condition: $condition) {
+    id
+    videoID
+    content
+    stars
+    createdAt
+    updatedAt
+  }
+}
