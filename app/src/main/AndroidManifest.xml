@@ -34,8 +34,8 @@
             android:name=".DownloadsActivity"
             android:label="Downloads" />
         <activity
-            android:name=".Activity3"
-            android:label="@string/action_activity3" />
+            android:name=".SearchActivity"
+            android:label="Search" />
         <activity
             android:name=".MyProfileActivity"
             android:label="@string/action_profile" />

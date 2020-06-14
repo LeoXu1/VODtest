@@ -112,7 +112,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 case R.id.action_profile:
                     break;
                 case R.id.action_activity3:
-                    Intent b = new Intent(MyProfileActivity.this, Activity3.class);
+                    Intent b = new Intent(MyProfileActivity.this, SearchActivity.class);
                     startActivity(b);
                     overridePendingTransition(0, 0);
                     break;

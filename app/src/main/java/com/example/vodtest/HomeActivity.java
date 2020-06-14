@@ -89,7 +89,7 @@ public class HomeActivity extends AppCompatActivity {
                     overridePendingTransition(0,0);
                     break;
                 case R.id.action_activity3:
-                    Intent b = new Intent(HomeActivity.this,Activity3.class);
+                    Intent b = new Intent(HomeActivity.this,SearchActivity.class);
                     startActivity(b);
                     overridePendingTransition(0,0);
                     break;

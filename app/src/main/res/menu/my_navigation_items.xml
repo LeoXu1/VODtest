@@ -13,8 +13,8 @@
             app:showAsAction="always"
             android:checkable="true"/>
         <item android:id="@+id/action_activity3"
-            android:title="Activity 3"
-            android:icon="@drawable/ic_dashboard_black_24dp"
+            android:title="Search"
+            android:icon="@drawable/ic_baseline_search_24"
             app:showAsAction="always"
             android:checkable="true"/>
 
