@@ -12,7 +12,7 @@
             android:icon="@drawable/ic_person_black_24dp"
             app:showAsAction="always"
             android:checkable="true"/>
-        <item android:id="@+id/action_activity3"
+        <item android:id="@+id/action_search"
             android:title="Search"
             android:icon="@drawable/ic_baseline_search_24"
             app:showAsAction="always"

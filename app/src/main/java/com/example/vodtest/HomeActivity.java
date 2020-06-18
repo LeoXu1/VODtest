@@ -1,6 +1,7 @@
 package com.example.vodtest;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -8,6 +9,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -68,8 +70,24 @@ public class HomeActivity extends AppCompatActivity {
         //Upload button
         FloatingActionButton btnUpload = findViewById(R.id.btn_uploadvideo);
         btnUpload.setOnClickListener(view -> {
-            Intent uploadIntent = new Intent(HomeActivity.this, UploadVideoActivity.class);
-            HomeActivity.this.startActivity(uploadIntent);
+            PopupMenu popup = new PopupMenu(this, view);
+            MenuInflater inflater = popup.getMenuInflater();
+            inflater.inflate(R.menu.upload_menu, popup.getMenu());
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if(item.getItemId()==R.id.video){
+                        Intent uploadIntent = new Intent(HomeActivity.this, UploadVideoActivity.class);
+                        HomeActivity.this.startActivity(uploadIntent);
+                    }
+                    else{
+                        Intent uploadIntent = new Intent(HomeActivity.this, UploadStreamActivity.class);
+                        HomeActivity.this.startActivity(uploadIntent);
+                    }
+                    return true;
+                }
+            });
+            popup.show();
         });
         final SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefresh);
         pullToRefresh.setOnRefreshListener(() -> {
@@ -88,7 +106,7 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(a);
                     overridePendingTransition(0,0);
                     break;
-                case R.id.action_activity3:
+                case R.id.action_search:
                     Intent b = new Intent(HomeActivity.this,SearchActivity.class);
                     startActivity(b);
                     overridePendingTransition(0,0);

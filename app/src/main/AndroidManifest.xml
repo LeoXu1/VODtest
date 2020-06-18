@@ -16,7 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WriteReviewActivity"></activity>
+        <activity android:name=".UploadStreamActivity"></activity>
+        <activity android:name=".LiveStreamPlayerActivity" />
+        <activity android:name=".LiveStreamsActivity" />
+        <activity android:name=".WriteReviewActivity" />
         <activity android:name=".ReviewsActivity" />
         <activity
             android:name=".MyStudioActivity"

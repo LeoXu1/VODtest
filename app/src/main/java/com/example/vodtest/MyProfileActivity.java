@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
 
 public class MyProfileActivity extends AppCompatActivity {
 
-    String[] items = new String[]{"Downloads", "Sign Out"};
+    String[] items = new String[]{"Downloads", "Live Streams", "Sign Out"};
     String sub;
     String name;
     String location;
@@ -79,6 +79,12 @@ public class MyProfileActivity extends AppCompatActivity {
                 Intent downloadsIntent = new Intent(MyProfileActivity.this, DownloadsActivity.class);
                 startActivity(downloadsIntent);
             }
+            if(items[position] == "Live Streams"){
+                Intent intent = getIntent();
+                Bundle extras = intent.getExtras();
+                Intent downloadsIntent = new Intent(MyProfileActivity.this, LiveStreamsActivity.class);
+                startActivity(downloadsIntent);
+            }
         });
 
         Button editProfileButton = findViewById(R.id.editProfileBtn);
@@ -111,7 +117,7 @@ public class MyProfileActivity extends AppCompatActivity {
                     break;
                 case R.id.action_profile:
                     break;
-                case R.id.action_activity3:
+                case R.id.action_search:
                     Intent b = new Intent(MyProfileActivity.this, SearchActivity.class);
                     startActivity(b);
                     overridePendingTransition(0, 0);

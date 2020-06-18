@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -71,6 +72,7 @@ public class SearchActivity extends AppCompatActivity {
     RecyclerView mUserRecycler;
     SearchResultsAdapter mAdapter;
     SearchUsersAdapter mUserAdapter;
+    EditText searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,16 +132,16 @@ public class SearchActivity extends AppCompatActivity {
                     startActivity(b);
                     overridePendingTransition(0, 0);
                     break;
-                case R.id.action_activity3:
+                case R.id.action_search:
 
                     break;
             }
             return true;
         });
-        MenuItem item = navigation.getMenu().findItem(R.id.action_activity3);
+        MenuItem item = navigation.getMenu().findItem(R.id.action_search);
         item.setChecked(true);
 
-        EditText searchBar = findViewById(R.id.searchBar);
+        searchBar = findViewById(R.id.searchBar);
 
         ImageButton searchButton = findViewById(R.id.btn_search);
 
@@ -151,7 +153,6 @@ public class SearchActivity extends AppCompatActivity {
 
 
     }
-
 
     public void getResults(String query) {
         try {
