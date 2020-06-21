@@ -1,8 +1,12 @@
 package com.example.vodtest;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,19 +29,48 @@ import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
+import com.google.android.exoplayer2.DefaultRenderersFactory;
+import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.database.DatabaseProvider;
+import com.google.android.exoplayer2.database.ExoDatabaseProvider;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.offline.Download;
+import com.google.android.exoplayer2.offline.DownloadHelper;
+import com.google.android.exoplayer2.offline.DownloadManager;
+import com.google.android.exoplayer2.offline.DownloadRequest;
+import com.google.android.exoplayer2.offline.DownloadService;
+import com.google.android.exoplayer2.scheduler.Scheduler;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.google.android.exoplayer2.upstream.FileDataSource;
+import com.google.android.exoplayer2.upstream.cache.CacheDataSink;
+import com.google.android.exoplayer2.upstream.cache.CacheDataSource;
+import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor;
+import com.google.android.exoplayer2.upstream.cache.NoOpCacheEvictor;
+import com.google.android.exoplayer2.upstream.cache.SimpleCache;
 import com.google.android.exoplayer2.util.Util;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 
@@ -46,9 +79,12 @@ import type.CreateReviewInput;
 public class VideoPlayerActivity extends AppCompatActivity {
 
     boolean fullscreen = false;
-    String sub;
+    String id;
     String name;
     String location;
+    SimpleExoPlayer player;
+    DataSource.Factory dataSourceFactory;
+    DatabaseProvider databaseProvider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,24 +92,27 @@ public class VideoPlayerActivity extends AppCompatActivity {
         //Player
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        String id = extras.getString("EXTRA_ID");
+        id = extras.getString("EXTRA_ID");
         String title = extras.getString("EXTRA_TITLE");
         String genre = extras.getString("EXTRA_GENRE");
         String url = extras.getString("EXTRA_URL");
-        sub = extras.getString("EXTRA_SUB");
+        String sub = extras.getString("EXTRA_SUB");
         TextView titleText = findViewById(R.id.text_title);
         TextView genreText = findViewById(R.id.text_genre);
         PlayerView playerView = findViewById(R.id.player_view);
         titleText.setText(title);
         genreText.setText(genre);
-        SimpleExoPlayer player = new SimpleExoPlayer.Builder(this).build();
+
+        player = new SimpleExoPlayer.Builder(this).build();
         playerView.setPlayer(player);
-        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(this,
+        dataSourceFactory = new DefaultHttpDataSourceFactory(
                 Util.getUserAgent(this, "VOD"));
-        MediaSource videoSource =
-                new HlsMediaSource.Factory(dataSourceFactory)
-                        .createMediaSource(Uri.parse(url));
-        player.prepare(videoSource);
+        DownloadHelper downloadHelper = DownloadHelper.forHls(this,
+                        Uri.parse(url),
+                        dataSourceFactory,
+                        new DefaultRenderersFactory(this));
+        downloadHelper.prepare(downloadHelperCallback);
+
 
         //Downloads
         Button downloadButton = findViewById(R.id.btn_download);
@@ -135,22 +174,15 @@ public class VideoPlayerActivity extends AppCompatActivity {
             startActivity(viewReviewsIntent);
         });
 
-/*
-        CreateReviewInput createReviewInput = CreateReviewInput.builder()
-                .videoID(id)
-                .content("Nice video")
-                .stars(5)
-                .build();
 
-        CreateReviewMutation createReviewMutation = CreateReviewMutation.builder()
-                .input(createReviewInput)
-                .build();
-        ClientFactory.appSyncClient().mutate(createReviewMutation)
-                .enqueue(mutateCallback);
-*/
+    }
 
-
-
+    @Override
+    public void onBackPressed() {
+        Log.i("VOD", "hello ffs");
+        SharedPreferences prefs = getSharedPreferences("VOD", MODE_PRIVATE);
+        prefs.edit().putLong("position"+id, player.getCurrentPosition()).apply();
+        super.onBackPressed();
     }
 
     public void downloadVideo() {
@@ -204,7 +236,57 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
 
     };
+    private DownloadHelper.Callback downloadHelperCallback = new DownloadHelper.Callback() {
+        @Override
+        public void onPrepared(DownloadHelper helper) {
+            DownloadRequest downloadRequest = helper.getDownloadRequest(null);
+            DownloadService.sendAddDownload(VideoPlayerActivity.this, MyDownloadService.class, downloadRequest,false);
+            MediaSource videoSource = DownloadHelper.createMediaSource(downloadRequest,dataSourceFactory);
+            player.prepare(videoSource);
+            SharedPreferences prefs = getSharedPreferences("VOD", MODE_PRIVATE);
+            long position = prefs.getLong("position"+id,0);
+            Log.i("VOD", Long.toString(position));
+            player.seekTo(position);
+            player.setPlayWhenReady(true);
+        }
 
+        @Override
+        public void onPrepareError(DownloadHelper helper, IOException e) {
+            e.printStackTrace();
+
+        }
+    };
+
+    class MyDownloadService extends DownloadService {
+        public MyDownloadService() {
+            super(1);
+            databaseProvider = new ExoDatabaseProvider(VideoPlayerActivity.this);
+        }
+        protected DownloadManager getDownloadManager() {
+            // A download cache should not evict media, so should use a NoopCacheEvictor.
+            SimpleCache downloadCache = new SimpleCache(
+                    getCacheDir(),
+                    new NoOpCacheEvictor(),
+                    databaseProvider);
+
+            // Create a factory for reading the data from the network.
+            DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory(Util.getUserAgent(this,"VOD"));
+
+            // Create the download manager.
+            DownloadManager downloadManager = new DownloadManager(
+                    this,
+                    databaseProvider,
+                    downloadCache,
+                    dataSourceFactory);
+            return downloadManager;
+        }
+        protected Scheduler getScheduler() {
+            return null;
+        }
+        protected Notification getForegroundNotification(List<Download> list) {
+            return null;
+        }
+    }
 
 
 }
